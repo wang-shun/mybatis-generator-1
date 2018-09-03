@@ -20,11 +20,11 @@
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
 
         <!-- 为生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
-        <plugin type="com.weidai.common.plugin.SerializablePlugin">
+        <plugin type="com.src.common.plugin.SerializablePlugin">
             <property name="suppressJavaInterface" value="false"/>
         </plugin>
 
-        <plugin type="com.weidai.common.plugin.PaginationPlugin"></plugin>
+        <plugin type="com.src.common.plugin.PaginationPlugin"></plugin>
 
         <!-- 生成在XML中的<cache>元素 -->
    #*     <plugin type="org.mybatis.generator.plugins.CachePlugin">
@@ -44,7 +44,7 @@
 
 
         <!-- 修改命名空间 -->
-        <commentGenerator type="com.weidai.common.plugin.CommentGenerator">
+        <commentGenerator type="com.src.common.plugin.CommentGenerator">
             <property name="suppressAllComments" value="true" />
             <property name="suppressDate" value="true"/>
             <property name="author" value="${author}"/>
