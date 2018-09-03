@@ -29,6 +29,14 @@ public class ${model}Repository extends BaseRepository<${model}, ${model}Example
         return mapper;
     }
 
+    public List<${model}> selectByExamplePage( ${model}Example example,Integer pageNo,Integer pageSize){
+        if(pageNo==null)pageNo=0;
+        if(pageSize==null)pageSize=20;
+        example.setOffset(pageNo*pageSize);
+        example.setLimit(pageSize);
+        return selectByExample(example);
+    }
+
 }
 
 
