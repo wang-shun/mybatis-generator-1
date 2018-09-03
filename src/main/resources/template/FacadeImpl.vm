@@ -1,0 +1,23 @@
+package ${rpcServerPack};
+
+import ${rpcPack}.${model}Facade;
+import ${repositoryPack}.${model}Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+* ${model}Facade实现
+* Created by ${author} on ${ctime}.
+*/
+@Service
+public class ${model}FacadeImpl  implements ${model}Facade {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(${model}FacadeImpl.class);
+
+    @Autowired
+    ${model}Repository repository;
+
+
+}
