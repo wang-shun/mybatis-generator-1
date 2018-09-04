@@ -54,6 +54,7 @@ public class MybatisGeneratorUtil {
 	 */
 	public static void generator(
             String rootClass,//是否需要继承某个类，此值是全路径类名
+			boolean generateFacade,//是否生成Facade类
             String targetProjectDao ,//当前执行此方法的模块用于确认base-path 例如 testgenerator/testgenerator-dao
             String targetProjectSql,//sqlmap存放 目标项目路径 例如 testgenerator/testgenerator-rpc-service/src/main/resources/
             String targetProjectRpcApi,// rpc 接口项目模块  例如 testgenerator/testgenerator-rpc-facade
@@ -285,67 +286,72 @@ public class MybatisGeneratorUtil {
 
 		String servicePath = basePath +targetProjectRpcApi + "/src/main/java/" + rpcPack.replaceAll("\\.", "/");
 		String serviceImplPath = basePath + targetProjectRpcService + "/src/main/java/" + rpcServerPack.replaceAll("\\.", "/");
-		for (int i = 0; i < tables.size(); i++) {
-			String model = lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
-			String service = servicePath + "/" + model + "Facade.java";
-			String serviceMock = servicePath + "/" + model + "FacadeMock.java";
-			String serviceImpl = serviceImplPath + "/" + model + "FacadeImpl.java";
-			// 生成service
-			File serviceFile = new File(service);
-			if (!serviceFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("repositoryPack", repositoryPack);
-				context.put("modelPack", modelPack);
-				context.put("rpcPack", rpcPack);
-				context.put("model", model);
-				context.put("ctime", ctime);
-				context.put("author",author);
-				VelocityUtil.generateJar(facade_vm, service, context);
-/*
-				VelocityUtil.generate(facade_vm, service, context);
-*/
-				System.out.println(service);
-			}
-			if(false){//删除
-				// 生成serviceMock
-				File serviceMockFile = new File(serviceMock);
-				if (!serviceMockFile.exists()) {
+
+		if(generateFacade){
+			for (int i = 0; i < tables.size(); i++) {
+				String model = lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
+				String service = servicePath + "/" + model + "Facade.java";
+				String serviceMock = servicePath + "/" + model + "FacadeMock.java";
+				String serviceImpl = serviceImplPath + "/" + model + "FacadeImpl.java";
+				// 生成service
+				File serviceFile = new File(service);
+				if (!serviceFile.exists()) {
 					VelocityContext context = new VelocityContext();
+					context.put("repositoryPack", repositoryPack);
 					context.put("modelPack", modelPack);
-					context.put("mapperPack", mapperPack);
 					context.put("rpcPack", rpcPack);
 					context.put("model", model);
 					context.put("ctime", ctime);
 					context.put("author",author);
-					VelocityUtil.generateJar(serviceMock_vm, serviceMock, context);
-					//VelocityUtil.generate(serviceMock_vm, serviceMock, context);
-					System.out.println(serviceMock);
+					VelocityUtil.generateJar(facade_vm, service, context);
+/*
+				VelocityUtil.generate(facade_vm, service, context);
+*/
+					System.out.println(service);
 				}
-			}
+				if(false){//删除
+					// 生成serviceMock
+					File serviceMockFile = new File(serviceMock);
+					if (!serviceMockFile.exists()) {
+						VelocityContext context = new VelocityContext();
+						context.put("modelPack", modelPack);
+						context.put("mapperPack", mapperPack);
+						context.put("rpcPack", rpcPack);
+						context.put("model", model);
+						context.put("ctime", ctime);
+						context.put("author",author);
+						VelocityUtil.generateJar(serviceMock_vm, serviceMock, context);
+						//VelocityUtil.generate(serviceMock_vm, serviceMock, context);
+						System.out.println(serviceMock);
+					}
+				}
 
-			// 生成FacadeImpl
-			File serviceImplFile = new File(serviceImpl);
-			if (!serviceImplFile.exists()) {
-				VelocityContext context = new VelocityContext();
-				context.put("modelPack", modelPack);
-				context.put("mapperPack", mapperPack);
-				context.put("rpcServerPack", rpcServerPack);
-				context.put("repositoryPack", repositoryPack);
-				context.put("rpcPack", rpcPack);
-				context.put("model", model);
-				context.put("mapper", StringUtil.toLowerCaseFirstOne(model));
-				context.put("ctime", ctime);
-				context.put("author",author);
-				context.put("generateExt",generateExt+"");
-				VelocityUtil.generateJar(facadeImpl_vm, serviceImpl, context);
+				// 生成FacadeImpl
+				File serviceImplFile = new File(serviceImpl);
+				if (!serviceImplFile.exists()) {
+					VelocityContext context = new VelocityContext();
+					context.put("modelPack", modelPack);
+					context.put("mapperPack", mapperPack);
+					context.put("rpcServerPack", rpcServerPack);
+					context.put("repositoryPack", repositoryPack);
+					context.put("rpcPack", rpcPack);
+					context.put("model", model);
+					context.put("mapper", StringUtil.toLowerCaseFirstOne(model));
+					context.put("ctime", ctime);
+					context.put("author",author);
+					context.put("generateExt",generateExt+"");
+					VelocityUtil.generateJar(facadeImpl_vm, serviceImpl, context);
 /*
 				VelocityUtil.generate(facadeImpl_vm, serviceImpl, context);
 */
-				System.out.println(serviceImpl);
+					System.out.println(serviceImpl);
+				}
 			}
+			System.out.println("========== 结束生成Service ==========");
 		}
-		System.out.println("========== 结束生成Service ==========");
-	}
+		}
+
+
 
 	// 递归删除非空文件夹
 	public static void deleteDir(File dir, String tablePrefix) {
