@@ -1,6 +1,9 @@
 # mybtais-generator
 
 #### 项目介绍
+开箱既用 代码生成直接就可以写业务代码
+
+
 mybtais-generator 扩展了mybtai自动生成;
 在原有的基础上自动生成 扩展MapperExt.java 和 扩展MapperExt.xml 文件  
 并且MapperExt.xml 文件直接继承 原生的Mapper.xml 文件 ;他们为同一个命名空间
@@ -127,6 +130,7 @@ generator.jdbc.password=root
 ```
 
 5. run main方法 就会自动生成以wechat_keyword_为前缀的所有表的数据
+6. 可以重复run  无需担心覆盖自己写的扩展Sql
 
 #### 生成效果
 ![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/111.png)
