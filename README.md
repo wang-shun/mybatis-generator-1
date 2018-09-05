@@ -105,7 +105,7 @@ public class Generator {
 
 		MybatisGeneratorUtil.generator(
 				null,
-				false,
+				true,//是否生成Facade 层
 				targetProjectDao,targetProjectSql,targetProjectRpcApi,targetProjectRpcService,
 				targetRepository,modelPack,mapperPack,repositoryPack,sqlmapperPack,rpcPack,rpcServerPack,
 				JDBC_DRIVER,JDBC_URL,JDBC_USERNAME,JDBC_PASSWORD,
