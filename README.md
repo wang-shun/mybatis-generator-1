@@ -129,8 +129,17 @@ generator.jdbc.password=root
 5. run main方法 就会自动生成以wechat_keyword_为前缀的所有表的数据
 
 #### 生成效果
+![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/111.png)
 
+![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/222.png)
 
+![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/333.png)
+
+![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/444.png)
+
+![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/555.png)
+
+![生成效果](https://gitee.com/shirenchuang/mybtais-generator/raw/master/images/666.png)
 
 
 
