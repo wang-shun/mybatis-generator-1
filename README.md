@@ -32,10 +32,10 @@ mybtais-generator 扩展了mybtai自动生成;
 
 #### 使用说明
 
-1. 可以clone次项目打包使用或者直接下载提供的Jar包使用
+1. 可以clone次项目打包使用或者直接下载提供的Jar包使用 
+[Jar附件下载](https://gitee.com/shirenchuang/mybtais-generator/attach_files)
 2. 将Jar导入到  Dao模板
 3. 在Dao模块新建一个生成类
-
 
 ```java
 
