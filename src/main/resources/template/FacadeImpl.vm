@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 
 /**
 * ${model}Facade实现
-* Created by ${author} on ${ctime}.
+* @author: ${author} on ${ctime}.
 */
 @Service
-public class ${model}FacadeImpl  implements ${model}Facade {
+public class ${model}ServiceImpl  implements ${model}Service {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(${model}FacadeImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(${model}ServiceImpl.class);
 
     @Autowired
-    ${model}Repository repository;
+    ${model}Dao ${modelToLowerCase}Dao;
 
 
 }

@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.src.common.util.StringUtil.lineToHump;
+import static com.src.common.util.StringUtil.toLowerCaseFirstOne;
 
 
 /**
@@ -81,7 +82,8 @@ public class MybatisGeneratorUtil {
 		boolean generateExt = true;//是否需要生成 扩展Mapper.xml 和 Mapper.java
 
 		String os = System.getProperty("os.name");
-		String basePath = MybatisGeneratorUtil.class.getResource("/").getPath().replace("/target/classes/", "").replace(targetProjectDao, "");
+		String basePath = MybatisGeneratorUtil.class.getResource("/").getPath().replace(targetProjectDao, "");
+		System.out.println("basePath" + basePath);
 		if (os.toLowerCase().startsWith("win")) {
 			generatorConfig_vm = MybatisGeneratorUtil.class.getResource(generatorConfig_vm).getPath().replaceFirst("/", "");
 			facade_vm = MybatisGeneratorUtil.class.getResource(facade_vm).getPath().replaceFirst("/", "");
@@ -188,7 +190,7 @@ public class MybatisGeneratorUtil {
 			String mapperxmlExtPath =  targetProjectSqlMap + sqlmapperPack.replaceAll("\\.", "/");
 			String baseMapperJava = mapperjavaExtPath+"/base/BaseMapper.java";
 			String repositoryJavaPath = targetRepository+"/src/main/java/"+repositoryPack.replaceAll("\\.", "/");
-			String repositoryBaseJavaPath = repositoryJavaPath +"/base/BaseRepository.java";
+			String repositoryBaseJavaPath = repositoryJavaPath +"/base/BaseDao.java";
 			//生成BaseRepository.java
 			File baseRepositoryJavaFile = new File(repositoryBaseJavaPath);
 			if (!baseRepositoryJavaFile.exists()) {
@@ -225,7 +227,7 @@ public class MybatisGeneratorUtil {
 				String model = lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
 				String mapperExtJava = mapperjavaExtPath + "/" + model + "MapperExt.java";
 				String mapperExtXml = mapperxmlExtPath + "/" + model + "MapperExt.xml";
-				String repositoryJava = repositoryJavaPath + "/" + model + "Repository.java";
+				String repositoryJava = repositoryJavaPath + "/" + model + "Dao.java";
 
 				//生成RepositoryJava
 				File repositoryJavaFile = new File(repositoryJava);
@@ -290,9 +292,10 @@ public class MybatisGeneratorUtil {
 		if(generateFacade){
 			for (int i = 0; i < tables.size(); i++) {
 				String model = lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
-				String service = servicePath + "/" + model + "Facade.java";
+				String modelToLowerCase = StringUtil.toLowerCaseFirstOne(model);
+				String service = servicePath + "/" + model + "Service.java";
 				String serviceMock = servicePath + "/" + model + "FacadeMock.java";
-				String serviceImpl = serviceImplPath + "/" + model + "FacadeImpl.java";
+				String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
 				// 生成service
 				File serviceFile = new File(service);
 				if (!serviceFile.exists()) {
@@ -331,6 +334,7 @@ public class MybatisGeneratorUtil {
 				if (!serviceImplFile.exists()) {
 					VelocityContext context = new VelocityContext();
 					context.put("modelPack", modelPack);
+					context.put("modelToLowerCase", modelToLowerCase);
 					context.put("mapperPack", mapperPack);
 					context.put("rpcServerPack", rpcServerPack);
 					context.put("repositoryPack", repositoryPack);
