@@ -16,10 +16,10 @@ import java.util.List;
 * @author: ${author} on ${ctime}.
 */
 @Repository
-public class ${model}Dao extends BaseDao<${model}, ${model}Example> {
+public class ${model}Respository extends BaseRepository<${model}, ${model}Example> {
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(${model}Dao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(${model}Repository.class);
 
     @Autowired
     ${model}MapperExt mapper;

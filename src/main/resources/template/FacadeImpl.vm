@@ -17,7 +17,7 @@ public class ${model}ServiceImpl  implements ${model}Service {
     private static final Logger LOGGER = LoggerFactory.getLogger(${model}ServiceImpl.class);
 
     @Autowired
-    ${model}Dao ${modelToLowerCase}Dao;
+    ${model}Repository repository;
 
 
 }

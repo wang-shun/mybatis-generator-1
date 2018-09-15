@@ -190,7 +190,7 @@ public class MybatisGeneratorUtil {
 			String mapperxmlExtPath =  targetProjectSqlMap + sqlmapperPack.replaceAll("\\.", "/");
 			String baseMapperJava = mapperjavaExtPath+"/base/BaseMapper.java";
 			String repositoryJavaPath = targetRepository+"/src/main/java/"+repositoryPack.replaceAll("\\.", "/");
-			String repositoryBaseJavaPath = repositoryJavaPath +"/base/BaseDao.java";
+			String repositoryBaseJavaPath = repositoryJavaPath +"/base/BaseRepository.java";
 			//生成BaseRepository.java
 			File baseRepositoryJavaFile = new File(repositoryBaseJavaPath);
 			if (!baseRepositoryJavaFile.exists()) {
@@ -227,7 +227,7 @@ public class MybatisGeneratorUtil {
 				String model = lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
 				String mapperExtJava = mapperjavaExtPath + "/" + model + "MapperExt.java";
 				String mapperExtXml = mapperxmlExtPath + "/" + model + "MapperExt.xml";
-				String repositoryJava = repositoryJavaPath + "/" + model + "Dao.java";
+				String repositoryJava = repositoryJavaPath + "/" + model + "Repository.java";
 
 				//生成RepositoryJava
 				File repositoryJavaFile = new File(repositoryJava);
@@ -292,7 +292,6 @@ public class MybatisGeneratorUtil {
 		if(generateFacade){
 			for (int i = 0; i < tables.size(); i++) {
 				String model = lineToHump(ObjectUtils.toString(tables.get(i).get("table_name")));
-				String modelToLowerCase = StringUtil.toLowerCaseFirstOne(model);
 				String service = servicePath + "/" + model + "Service.java";
 				String serviceMock = servicePath + "/" + model + "FacadeMock.java";
 				String serviceImpl = serviceImplPath + "/" + model + "ServiceImpl.java";
@@ -334,7 +333,6 @@ public class MybatisGeneratorUtil {
 				if (!serviceImplFile.exists()) {
 					VelocityContext context = new VelocityContext();
 					context.put("modelPack", modelPack);
-					context.put("modelToLowerCase", modelToLowerCase);
 					context.put("mapperPack", mapperPack);
 					context.put("rpcServerPack", rpcServerPack);
 					context.put("repositoryPack", repositoryPack);
